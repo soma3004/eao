@@ -1,5 +1,3 @@
-# app.py
-
 import streamlit as st
 import time
 
@@ -14,17 +12,14 @@ if 'start_time' not in st.session_state:
     st.session_state.time_difference = 0.0  # 5.00秒との差分初期化
 
 # ボタンのラベルを決める
-if st.session_state.timer_running:
-    button_label = "タイマー停止"
-else:
-    button_label = "タイマー開始"
+button_label = "タイマー停止" if st.session_state.timer_running else "タイマー開始"
 
 # タイマー開始・停止ボタン
 if st.button(button_label):
     if st.session_state.timer_running:
         # 停止時の処理
         st.session_state.elapsed_time = time.time() - st.session_state.start_time  # 経過時間を保存
-        st.session_state.timer_running = False
+        st.session_state.timer_running = False  # タイマーを停止
 
         # 経過時間と5.00秒との差を計算
         st.session_state.time_difference = round(st.session_state.elapsed_time - 5.00, 3)
@@ -32,7 +27,7 @@ if st.button(button_label):
         # 開始時の処理
         st.session_state.start_time = time.time()  # 新たに開始時刻を記録
         st.session_state.elapsed_time = 0.0  # 経過時間をリセット
-        st.session_state.timer_running = True
+        st.session_state.timer_running = True  # タイマーを開始
         st.session_state.time_difference = 0.0  # 差分をリセット
 
 # タイマーの表示
