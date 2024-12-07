@@ -2,7 +2,7 @@ import streamlit as st
 import time
 
 # タイトル
-st.title("インタラクティブ")
+st.title("インタラクティブタイマー")
 
 # 初期状態
 if 'start_time' not in st.session_state:
