@@ -42,3 +42,4 @@ if not st.session_state.timer_running and st.session_state.elapsed_time > 0:
     # 5秒ぴったりの場合にメッセージを表示
     if st.session_state.success_message:
         st.success(st.session_state.success_message)
+
