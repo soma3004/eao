@@ -3,6 +3,7 @@ import time
 
 # タイトル
 st.title("インタラクティブタイマー")
+st.write("５秒ぴったりで止めよう！")
 
 # 初期状態
 if 'start_time' not in st.session_state:
