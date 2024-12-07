@@ -4,26 +4,30 @@ import streamlit as st
 import time
 
 # タイトル
-st.title("5秒タイマー")
+st.title("インタラクティブタイマー")
+
+# 初期状態
+if 'start_time' not in st.session_state:
+    st.session_state.start_time = 0
+    st.session_state.elapsed_time = 0.0
+    st.session_state.timer_running = False
 
 # タイマー開始ボタン
-if st.button('タイマー開始'):
-    # タイマーのカウントダウン
-    start_time = time.time()  # タイマー開始時の時刻を取得
-    timer_running = True
+if st.button("タイマー開始") and not st.session_state.timer_running:
+    st.session_state.start_time = time.time() - st.session_state.elapsed_time  # 前回の停止時間から再開
+    st.session_state.timer_running = True
 
-    # 空のコンテナを作成してタイマーを表示
-    timer_display = st.empty()
+# タイマー停止ボタン
+if st.button("タイマー停止") and st.session_state.timer_running:
+    st.session_state.elapsed_time = time.time() - st.session_state.start_time  # 経過時間を保存
+    st.session_state.timer_running = False
 
-    while timer_running:
-        elapsed_time = time.time() - start_time  # 経過時間を計算
-        # 小数第2位まで表示
-        timer_display.text(f"経過時間: {elapsed_time:.2f}秒")
+# タイマーの表示
+if st.session_state.timer_running:
+    # タイマーが動いている間、経過時間を表示
+    st.session_state.elapsed_time = time.time() - st.session_state.start_time
+    st.write(f"経過時間: {st.session_state.elapsed_time:.2f}秒")
 
-        # 5秒に到達したら停止
-        if elapsed_time >= 5:
-            timer_display.text(f"タイマー終了: {elapsed_time:.2f}秒")
-            timer_running = False
-
-        # 0.1秒待機してから再度表示を更新
-        time.sleep(0.1)
+# タイマーが停止している場合
+if not st.session_state.timer_running:
+    st.write(f"最終経過時間: {st.session_state.elapsed_time:.2f}秒")
