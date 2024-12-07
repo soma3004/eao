@@ -1,3 +1,5 @@
+# app.py
+
 import streamlit as st
 import time
 
@@ -33,20 +35,14 @@ if st.button(button_label):
         st.session_state.timer_running = True
         st.session_state.time_difference = 0.0  # 差分をリセット
 
-# タイマーが動いている場合
+# タイマーの表示
 if st.session_state.timer_running:
     # タイマーが動いている間、経過時間を表示
     st.session_state.elapsed_time = time.time() - st.session_state.start_time
-    minutes = int(st.session_state.elapsed_time // 60)
-    seconds = int(st.session_state.elapsed_time % 60)
-    milliseconds = int((st.session_state.elapsed_time - int(st.session_state.elapsed_time)) * 1000)
-    st.write(f"経過時間: {minutes:02}:{seconds:02}.{milliseconds:03}")
+    st.write(f"経過時間: {st.session_state.elapsed_time:.2f}秒")
 
 # タイマーが停止している場合
 if not st.session_state.timer_running and st.session_state.elapsed_time > 0:
-    minutes = int(st.session_state.elapsed_time // 60)
-    seconds = int(st.session_state.elapsed_time % 60)
-    milliseconds = int((st.session_state.elapsed_time - int(st.session_state.elapsed_time)) * 1000)
-    st.write(f"最終経過時間: {minutes:02}:{seconds:02}.{milliseconds:03}")
+    st.write(f"最終経過時間: {st.session_state.elapsed_time:.2f}秒")
     # 経過時間と5.00秒との差分を表示（±差分のみ表示）
     st.write(f"5.00秒からの差: {st.session_state.time_difference:+.3f}秒")
