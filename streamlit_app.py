@@ -40,6 +40,6 @@ if st.session_state.timer_running:
 
 # タイマーが停止している場合
 if not st.session_state.timer_running and st.session_state.elapsed_time > 0:
-    st.write(f"最終経過時間: {st.session_state.elapsed_time:.2f}秒")
+    st.subheader(f"最終経過時間: {st.session_state.elapsed_time:.2f}秒")
     # 経過時間と5.00秒との差分を表示（±差分のみ表示）
-    st.write(f"5.00秒からの差: {st.session_state.time_difference:+.3f}秒")
+    st.subheader(f"5.00秒からの差: {st.session_state.time_difference:+.3f}秒")
