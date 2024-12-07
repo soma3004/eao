@@ -12,7 +12,7 @@ if 'start_time' not in st.session_state:
     st.session_state.elapsed_time = 0.0
     st.session_state.timer_running = False
     st.session_state.success_message = None  # 成功メッセージの初期化
-    st.session_state.time_difference = 0.0  # 5.00秒との差分
+    st.session_state.time_difference = 0.0  # 5.00秒との差分初期化
 
 # タイマー開始ボタン
 if st.button("タイマー開始") and not st.session_state.timer_running:
