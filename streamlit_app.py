@@ -11,28 +11,29 @@ if 'start_time' not in st.session_state:
     st.session_state.timer_running = False
     st.session_state.time_difference = 0.0  # 5.00秒との差分初期化
 
-# ボタンのラベルを決める
-button_label = "タイマー停止" if st.session_state.timer_running else "タイマー開始"
+# 開始ボタンと停止ボタンの処理
+start_button = st.button("タイマー開始")
+stop_button = st.button("タイマー停止")
 
-# タイマー開始・停止ボタン
-if st.button(button_label):
-    if st.session_state.timer_running:
-        # 停止時の処理
-        st.session_state.elapsed_time = time.time() - st.session_state.start_time  # 経過時間を保存
-        st.session_state.timer_running = False  # タイマーを停止
+# タイマー開始ボタンが押された場合
+if start_button and not st.session_state.timer_running:
+    # 開始時の処理
+    st.session_state.start_time = time.time()  # 新たに開始時刻を記録
+    st.session_state.elapsed_time = 0.0  # 経過時間をリセット
+    st.session_state.timer_running = True  # タイマーを開始
+    st.session_state.time_difference = 0.0  # 差分をリセット
 
-        # 経過時間と5.00秒との差を計算
-        st.session_state.time_difference = round(st.session_state.elapsed_time - 5.00, 3)
-    else:
-        # 開始時の処理
-        st.session_state.start_time = time.time()  # 新たに開始時刻を記録
-        st.session_state.elapsed_time = 0.0  # 経過時間をリセット
-        st.session_state.timer_running = True  # タイマーを開始
-        st.session_state.time_difference = 0.0  # 差分をリセット
+# タイマー停止ボタンが押された場合
+if stop_button and st.session_state.timer_running:
+    # 停止時の処理
+    st.session_state.elapsed_time = time.time() - st.session_state.start_time  # 経過時間を保存
+    st.session_state.timer_running = False  # タイマーを停止
 
-# タイマーの表示
+    # 経過時間と5.00秒との差を計算
+    st.session_state.time_difference = round(st.session_state.elapsed_time - 5.00, 3)
+
+# タイマーが動いている間、経過時間を表示
 if st.session_state.timer_running:
-    # タイマーが動いている間、経過時間を表示
     st.session_state.elapsed_time = time.time() - st.session_state.start_time
     st.write(f"経過時間: {st.session_state.elapsed_time:.2f}秒")
 
